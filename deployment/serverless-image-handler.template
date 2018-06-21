@@ -465,8 +465,12 @@
           "DefaultCacheBehavior": {
             "AllowedMethods": [ "GET", "HEAD"],
             "TargetOriginId": { "Ref": "ImageHandlerApi"},
+            "DefaultTTL": "1",
+            "MinTTL": "0",
+            "MaxTTL": "1",
             "ForwardedValues": {
               "QueryString": "false",
+              "Headers": "Url-Signature",
               "Cookies": { "Forward": "none" }
             },
             "ViewerProtocolPolicy": "https-only"
