@@ -171,11 +171,16 @@ def call_thumbor(request):
         restart_server()
         return response_formater(status_code='502')
     http_path = request['path']
+    http_headers = request['headers']
     if str(os.environ.get('REWRITE_ENABLED')).upper() == 'YES':
         http_path = lambda_rewrite.match_patterns(http_path)
     if config.ALLOW_UNSAFE_URL:
         http_path = '/unsafe' + http_path
     else:
+      try:
+        url_signature = http_headers['Url-Signature']
+        http_path = '/' + url_signature + http_path
+      except KeyError:
         http_path = http_path
     response = session.get(unix_path + http_path)
     if response.status_code != 200:
