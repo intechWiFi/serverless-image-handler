@@ -470,7 +470,7 @@
             "MaxTTL": "1",
             "ForwardedValues": {
               "QueryString": "false",
-              "Headers": "Url-Signature",
+              "Headers": ["Url-Signature"],
               "Cookies": { "Forward": "none" }
             },
             "ViewerProtocolPolicy": "https-only"
